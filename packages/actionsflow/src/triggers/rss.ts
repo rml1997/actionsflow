@@ -10,7 +10,7 @@ export default class Rss implements ITriggerClassType {
   options: ITriggerOptions = {};
   helpers: IHelpers;
   getItemKey(item: AnyObject): string {
-    // TODO adapt every cases
+    // TODO use case statement
     if (item.guid) return item.guid as string;
     if (item.link) return item.link as string;
     if (item.id) return item.id as string;
@@ -27,12 +27,12 @@ export default class Rss implements ITriggerClassType {
 
     if (Array.isArray(url)) {
       if (url.length === 0) {
-        throw new Error("url must be provided one at lease");
+        throw new Error("At least one url must be provided");
       }
       urls = url;
     } else {
       if (!url) {
-        throw new Error("Miss required param url");
+        throw new Error("Required param 'url' is missing");
       }
       urls = [url];
     }
@@ -49,7 +49,7 @@ export default class Rss implements ITriggerClassType {
       } catch (e) {
         if (e.code === "ECONNREFUSED") {
           throw new Error(
-            `It was not possible to connect to the URL. Please make sure the URL "${url}" it is valid!`
+            `It was not possible to connect to the URL. Please make sure the URL "${url}" is valid!`
           );
         }
 
